@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
+        Schema::create('taggables', function (Blueprint $table) {
+            $table->foreignId('tag_id')->constrained('tags');
+            $table->morphs('taggable');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('taggables');
     }
 };
