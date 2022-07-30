@@ -17,7 +17,8 @@ class NoteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title'=>fake()->sentence(),
+            'description'=>fake()->paragraphs(fake()->randomNumber(1,3), true)
         ];
     }
 }
