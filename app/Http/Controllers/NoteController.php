@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
+use App\Http\Resources\NoteResource;
 use App\Models\Note;
+use App\Models\User;
+use App\Models\Tag;
 
 class NoteController extends Controller
 {
@@ -15,28 +18,24 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        $notes = Note::with('tags')->get();
+        if(request()->expectsJson()){
+            return NoteResource::collection($notes);
+        }
+        return response("This page is only available in JSON.",400);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
+     * The \App\Http\Requests\StoreNoteRequest handles all validation.
      *
      * @param  \App\Http\Requests\StoreNoteRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreNoteRequest $request)
     {
-        //
+        return Note::create();
     }
 
     /**
@@ -47,7 +46,9 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        //
+        if(request()->expectsJson()){
+            return new NoteResource($note->load('tags'));
+        }
     }
 
     /**
@@ -59,6 +60,7 @@ class NoteController extends Controller
     public function edit(Note $note)
     {
         //
+        return "here";
     }
 
     /**
