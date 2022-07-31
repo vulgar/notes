@@ -14,6 +14,10 @@ class NoteResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'title'=>$this->title,
+            'description'=>$this->description,
+            'tags'=>TagResource::collection($this->whenLoaded('tags'))
+        ];
     }
 }
