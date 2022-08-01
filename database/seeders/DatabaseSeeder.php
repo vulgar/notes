@@ -14,18 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        \App\Models\User::factory()->create([
-            'name' => 'Tom Imrei',
-            'email' => 'tom@example.com',
-        ]);
-
-        \App\Models\User::factory()->create([
-            'name' => 'Matthew Newport',
-            'email' => 'admin@matthewnewport.com',
-        ]);
-
         $this->call([
             NoteSeeder::class,
             TagSeeder::class
