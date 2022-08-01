@@ -18,10 +18,6 @@
   transition: all 0.75s ease;
 }
 
-.fade-leave-active {
-  transition: all 0.25s ease;
-}
-
 
 .fade-enter-from,
 .fade-leave-to {

@@ -1,6 +1,6 @@
 <template>
     <div class="py-4">
-        <a href="#" class="mt-4 border-slate-500 border rounded-md px-4" @click="showModal = true"><button>Add Note</button></a>
+        <button class="border-slate-500 border rounded-md px-4 h-[40px]" @click="showModal = true">Add Note</button>
         <Modal v-if="showModal" @close="showModal = false" @added="noteAdded" />
         <div class="flex flex-col divide-y">
             <transition-group name="list">
