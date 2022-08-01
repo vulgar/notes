@@ -22,13 +22,13 @@
 
 
 
-- Once the install process is complete, we need to run build our container. 
+- Once the install process is complete, we need to build our container. 
     
     Sail is in our /vendor/bin directory, so run: `./vendor/bin/sail up`
     
     This is going to build and prep our docker container. This container has everything we need to run our app. It may take a moment to install everything the first time, but it will be super fast every time after.
 
-    :warning: NOTE: If you get an error stating that the port is already in use, we can modify the port assignments inline and try again, like this:
+    :warning: NOTE: **If you get an error** stating that the port is already in use, we can modify the port assignments inline and try again, like this:
 
     `APP_PORT=85 FORWARD_DB_PORT=3370 ./vendor/bin/sail up -d`
 
