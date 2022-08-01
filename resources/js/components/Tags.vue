@@ -11,7 +11,7 @@
         <div class="flex flex-col">
             <transition-group name="list" tag="ul">
             <li v-for="(tag, tagKey) in tags" :key="tagKey" class="flex flex-row space-y-2 py-1 items-center">
-                <p>{{ tag.name }}</p>
+                <p class="mr-4">{{ tag.name }}</p>
                 <button href="" class="text-red-500 ml-auto block" :value="tagKey" @click="removeTag">delete</button>
             </li>
             </transition-group>
