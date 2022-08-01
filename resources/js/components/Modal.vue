@@ -14,7 +14,7 @@
         justify-center
       "
     >
-      <div class="modal-wrapper bg-white max-w-screen-sm">
+      <div class="modal-wrapper bg-white max-w-70 w-96">
         <div class="p-4">
           <div class="modal-header"></div>
 
@@ -25,10 +25,13 @@
             <label for="description" class="mt-3">Description</label>
             <textarea id="description" v-model="note.description"></textarea>
 
-            <label class="mt-3">Tags</label>
-            <div class="border border-slate-500 p-4">
+            <div class="flex">
+                <label class="mt-3">Tags</label>
+                <input type="text" class="text-sm ml-auto mt-auto p-1 h-6" v-model="tagFilter" placeholder="Filter Tags" />
+            </div>
+            <div class="border border-slate-500 p-4 max-h-48 overflow-y-auto">
               <ul>
-                <li v-for="(tag, tagKey) in tags" :key="tagKey">
+                <li v-for="tag in filteredTags" :key="tag.id">
                   <input
                     :id="'tag' + tag.id"
                     type="checkbox"
@@ -94,6 +97,7 @@ export default {
       tags: null,
       note: null,
       inputError: null,
+      tagFilter: null
     };
   },
   props: {
@@ -119,6 +123,13 @@ export default {
   mounted() {
     this.refreshTags();
   },
+  computed:{
+    filteredTags(){
+        return this.tagFilter
+            ? this.tags.filter(object => (object.name.toLowerCase().includes(this.tagFilter.toLowerCase())))
+            : this.tags;
+    }
+  },
   methods: {
     refreshTags() {
       axios
@@ -130,7 +141,7 @@ export default {
         .post("/api/notes", this.note)
         .then((response) => (this.$emit('added', response.data.data) ))
         .catch(error => (this.inputError = error.response));
-    },
+    }
   },
 };
 </script>
