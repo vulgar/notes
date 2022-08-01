@@ -17,6 +17,7 @@ class NoteResource extends JsonResource
         return [
             'title'=>$this->title,
             'description'=>$this->description,
+            'createdOn'=>\Carbon\Carbon::now()->format('H:iA Y/m/d'),
             'tags'=>TagResource::collection($this->whenLoaded('tags'))
         ];
     }

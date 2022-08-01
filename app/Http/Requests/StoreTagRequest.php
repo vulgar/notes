@@ -13,7 +13,10 @@ class StoreTagRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        // HERE IS WHERE YOU WOULD CHECK FOR WHETHER THE USER IS AUTHENTICATED
+        // IF NOT IT WOULD RETURN FALSE
+        // AS THIS IS A SIMPLIFIED APPLICATION, I WILL ALWAYS RETURN TRUE
+        return true;
     }
 
     /**
@@ -24,7 +27,21 @@ class StoreTagRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'required|unique:tags|max:100'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Blank tags are not allowed',
+            'name.unique' => 'Duplicate tags are not allowed',
+            'name.max' => 'Tags cannot be more than 100 characters',
         ];
     }
 }

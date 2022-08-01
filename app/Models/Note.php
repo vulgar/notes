@@ -9,6 +9,8 @@ class Note extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'description'];
+
     /**
      * Get all of the tags for the note.
      */

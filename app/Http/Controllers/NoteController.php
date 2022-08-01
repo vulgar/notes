@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNoteRequest;
-use App\Http\Requests\UpdateNoteRequest;
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
-use App\Models\User;
-use App\Models\Tag;
 
 class NoteController extends Controller
 {
@@ -35,54 +32,9 @@ class NoteController extends Controller
      */
     public function store(StoreNoteRequest $request)
     {
-        return Note::create();
+        $note = Note::create($request->safe()->only(['title','description']));
+        $note->tags()->sync($request->safe()->only('tags')['tags'], true);
+        return new NoteResource($note->load('tags'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Note $note)
-    {
-        if(request()->expectsJson()){
-            return new NoteResource($note->load('tags'));
-        }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Note $note)
-    {
-        //
-        return "here";
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateNoteRequest  $request
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateNoteRequest $request, Note $note)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Note $note)
-    {
-        //
-    }
 }
